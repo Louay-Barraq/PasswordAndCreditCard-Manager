@@ -7,6 +7,8 @@
   The users and their accounts are stored in database.  
   All the passwords get encrypted before getting stored in the database and get decrypted before being shown to the user when asked to. 
 </p>
+
+
 ---
 
 
