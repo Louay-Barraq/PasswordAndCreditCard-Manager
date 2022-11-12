@@ -4,7 +4,7 @@ from cryptography.hazmat.primitives import hashes
 
 
 def generate_key():
-    # Generated key to encrypt and decrypt passwords
+    # Generating a key to encrypt and decrypt passwords
     return Fernet.generate_key()
 
 
@@ -21,18 +21,18 @@ def get_hash(string):
 
 
 def encrypt_password(key, password):
-    # Encrypt a given password 
-    fer = Fernet(key)
+    # Encrypt a given password from the user 
+    fernet = Fernet(key)
 
-    encrypted_password = fer.encrypt(password.encode())
+    encrypted_password = fernet.encrypt(password.encode())
 
     return encrypted_password
 
 
 def decrypt_password(key, password):
-    # Decrypt an encrypted password 
-    fer = Fernet(key)
+    # Decrypt an encrypted password from the database
+    fernet = Fernet(key)
 
-    decrypted_password = (fer.decrypt(password.encode())).decode()
+    decrypted_password = (fernet.decrypt(password.encode())).decode()
 
     return decrypted_password
