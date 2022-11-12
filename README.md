@@ -58,12 +58,12 @@ pip install cryptography PyQt5
 <p>To use the manager just open the terminal and run main.py with</p>
 
 ```
-python main.py
+python3 main.py
 ```
 <p>In case you want to execute the GUI version run the file gui_main.py</p>
 
 ```
-python gui_main.py
+python3 gui_main.py
 ```
 
 ---
