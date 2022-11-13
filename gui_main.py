@@ -622,7 +622,8 @@ class DeleteAnAccount(QDialog):
 
 
 # Main Part :
-def main():
+
+if __name__ == '__main__':
     if not path.exists('passwords.db'):
         create_db()
 
@@ -636,6 +637,4 @@ def main():
     widget.setWindowTitle("Password Manager - Testing Version")
     widget.show()
     app.exec_()
-
-if __name__ == '__main__':
-    main()
+    
