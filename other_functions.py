@@ -2,11 +2,20 @@ from time import sleep
 import os 
 import re
 from PyQt5.QtWidgets import QMessageBox
+from os import system, name
 
-# Function to clear the command prompt after a given amount of time
+# Function to clear the command prompt after a given amount of time for both Windows and Linux users
 def SleepClear(time):
-    sleep(time)
-    os.system('cls')
+   # for windows
+   if name == 'nt':
+       sleep(time)
+       system('cls')
+
+   # for mac and linux
+   else:
+       sleep(time)
+       system('clear')
+
 
 # Function to declare that an error happened
 def Error():
