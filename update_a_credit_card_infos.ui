@@ -21,7 +21,7 @@
     <rect>
      <x>120</x>
      <y>20</y>
-     <width>401</width>
+     <width>411</width>
      <height>51</height>
     </rect>
    </property>
@@ -34,15 +34,15 @@
     </font>
    </property>
    <property name="text">
-    <string>Update An Account's Infos</string>
+    <string>Update A Credit Card's Infos</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="UpdateUsername">
+  <widget class="QPushButton" name="UpdateCardName">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>130</y>
-     <width>211</width>
+     <x>30</x>
+     <y>120</y>
+     <width>241</width>
      <height>51</height>
     </rect>
    </property>
@@ -58,15 +58,39 @@
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>Update Username</string>
+    <string>Update Card Name</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="UpdateEmail">
+  <widget class="QPushButton" name="UpdateCardholderName">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>350</x>
+     <y>120</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Update Cardholder Name</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="UpdateNumber">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
      <y>200</y>
-     <width>211</width>
+     <width>251</width>
      <height>51</height>
     </rect>
    </property>
@@ -82,38 +106,14 @@
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>Update Email</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="UpdatePassword">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>270</y>
-     <width>211</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="text">
-    <string>Update Password</string>
+    <string>Update Number</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Exit">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>390</y>
+     <x>500</x>
+     <y>400</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -136,8 +136,8 @@
   <widget class="QPushButton" name="ReturnButton">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>390</y>
+     <x>390</x>
+     <y>400</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -155,6 +155,54 @@
    </property>
    <property name="text">
     <string>Return</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="UpdateCVV">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>280</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Update CVV</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="UpdateExpirationDate">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>280</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Update Expiration Date</string>
    </property>
   </widget>
  </widget>

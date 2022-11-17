@@ -6,7 +6,7 @@ from db_functions import (create_db, usernames_list, get_account_infos, get_exis
     update_credit_card_name, update_credit_card_number, update_credit_cardholder_name, get_existing_credit_cards,
     get_credit_card_infos)
 from encryption_functions import (generate_key, get_hash, encrypt_password, decrypt_password)
-from other_functions import (SleepClear, Error, Message, Check, Library)
+from other_functions import (SleepClear, Error, Message, Check)
 
 
 def AllUsers():
@@ -532,7 +532,6 @@ def ListCreditCardInfo(username, key):
 
 
 def main():
-    Library()
     if not path.exists('passwords.db'):
         create_db()
 

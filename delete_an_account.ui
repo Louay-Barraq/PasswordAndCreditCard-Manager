@@ -107,7 +107,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Delete Account</string>
+    <string>Delete An Account</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">

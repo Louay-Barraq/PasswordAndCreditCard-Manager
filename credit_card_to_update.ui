@@ -6,44 +6,60 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>620</width>
-    <height>450</height>
+    <width>625</width>
+    <height>345</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 170, 0);</string>
+   <string notr="true">background-color: rgb(255, 255, 0);</string>
   </property>
+  <widget class="QPushButton" name="Confirm">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>240</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:white;</string>
+   </property>
+   <property name="text">
+    <string>Confirm</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="CreditCardName">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>140</y>
+     <width>291</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>20</y>
-     <width>401</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>22</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Update An Account's Infos</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="UpdateUsername">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>130</y>
-     <width>211</width>
-     <height>51</height>
+     <x>70</x>
+     <y>150</y>
+     <width>191</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
@@ -54,92 +70,38 @@
      <bold>true</bold>
     </font>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
    <property name="text">
-    <string>Update Username</string>
+    <string>Credit Card's Name : </string>
    </property>
   </widget>
-  <widget class="QPushButton" name="UpdateEmail">
+  <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>200</y>
-     <width>211</width>
+     <x>60</x>
+     <y>30</y>
+     <width>531</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>MS Sans Serif</family>
-     <pointsize>12</pointsize>
+     <pointsize>18</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
    <property name="text">
-    <string>Update Email</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="UpdatePassword">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>270</y>
-     <width>211</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="text">
-    <string>Update Password</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Exit">
-   <property name="geometry">
-    <rect>
-     <x>490</x>
-     <y>390</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="text">
-    <string>Exit</string>
+    <string>Which Credit Card You Want To Update ?</string>
    </property>
   </widget>
   <widget class="QPushButton" name="ReturnButton">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>390</y>
-     <width>93</width>
-     <height>28</height>
+     <x>360</x>
+     <y>300</y>
+     <width>121</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
@@ -151,10 +113,34 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true">background-color:white;</string>
    </property>
    <property name="text">
     <string>Return</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ExitButton">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>300</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:white;</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
    </property>
   </widget>
  </widget>

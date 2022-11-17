@@ -6,9 +6,11 @@ from PyQt5 import QtWidgets, QtGui
 from main import AllUsers, check_user
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
 from db_functions import (create_db, get_account_infos, get_existing_accounts,get_key, get_user_id, add_account, add_user,
-    update_account_password, update_account_username, delete_account, delete_user, update_account_email)
+    update_account_password, update_account_username, delete_account, delete_user, update_account_email, add_credit_card,
+    update_credit_card_name, update_credit_cardholder_name, update_credit_card_number, update_credit_card_expiration_date,
+    update_credit_card_CVV, delete_credit_card, get_credit_card_infos, get_existing_credit_cards)
 from encryption_functions import (generate_key, get_hash, encrypt_password, decrypt_password)
-from other_functions import Check, Library, ShowWarningPopup, ShowInformationPopup
+from other_functions import Check, ShowWarningPopup, ShowInformationPopup
 
 
 class MainMenu(QMainWindow):
@@ -119,8 +121,8 @@ class SignIn(QDialog):
             global key 
             key = get_key(user_id)
 
-            usermenu = UserMenu()
-            widget.addWidget(usermenu)
+            accountUserMenu = AccountUserMenu()
+            widget.addWidget(accountUserMenu)
             widget.setCurrentIndex(widget.currentIndex() + 1)
 
             # Returning the username and the key
@@ -189,10 +191,23 @@ class DelAUser(QDialog):
         sys.exit()
 
 
-class UserMenu(QDialog):
+class CreditCardUserMenu(QDialog):
     def __init__(self):
-        super(UserMenu, self).__init__()
-        loadUi("user_menu.ui", self)
+        super(CreditCardUserMenu, self).__init__()
+        loadUi("cc_user_menu.ui", self)
+        self.AddANewCreditCard.clicked.connect(self.GoToAddANewCreditCard)
+        self.ListAllSavedCreditCards.clicked.connect(self.GoToListCreditCards)
+        self.GetACreditCardInfos.clicked.connect(self.GoToGetInfos)
+        self.UpdateACreditCardInfos.clicked.connect(self.GoToUpdateInfos)
+        self.DeleteAnExistingCreditCard.clicked.connect(self.GoToDeleteCreditCard)
+        self.Exit.clicked.connect(self.Quit)
+        self.Return.clicked.connect(self.ReturnToServiceSelection)
+
+
+class AccountUserMenu(QDialog):
+    def __init__(self):
+        super(AccountUserMenu, self).__init__()
+        loadUi("acc_user_menu.ui", self)
         self.AddANewAccount.clicked.connect(self.GoToAddANewAccount)
         self.ListAllSavedAccounts.clicked.connect(self.GoToListAccounts)
         self.GetAnAccountInfos.clicked.connect(self.GoToGetInfos)
@@ -282,8 +297,8 @@ class AddAnAccount(QDialog):
             try:
                 add_account(account_name, account_username, account_email, encrypted_account_password, user_id)
                 ShowInformationPopup("Success", f"Account Added Successfully !")
-                usermenu = UserMenu()
-                widget.addWidget(usermenu)
+                accountUserMenu = AccountUserMenu()
+                widget.addWidget(accountUserMenu)
                 widget.setFixedWidth(730)
                 widget.setFixedHeight(510)
                 widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -294,8 +309,8 @@ class AddAnAccount(QDialog):
             break
 
     def Return(self):
-        usermenu = UserMenu()
-        widget.addWidget(usermenu)
+        accountUserMenu = AccountUserMenu()
+        widget.addWidget(accountUserMenu)
         widget.setFixedWidth(730)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -331,8 +346,8 @@ class AccountSelection(QDialog):
             widget.setCurrentIndex(widget.currentIndex() + 1)
     
     def Return(self):
-        usermenu = UserMenu()
-        widget.addWidget(usermenu)
+        accountUserMenu = AccountUserMenu()
+        widget.addWidget(accountUserMenu)
         widget.setFixedWidth(730)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -376,8 +391,8 @@ class GetAnAccountInfos(QDialog):
                 self.AccountPassword.setText(decrypted_account_password)
 
     def Return(self):
-        usermenu = UserMenu()
-        widget.addWidget(usermenu)
+        accountUserMenu = AccountUserMenu()
+        widget.addWidget(accountUserMenu)
         widget.setFixedWidth(730)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -412,8 +427,8 @@ class ListAllAccounts(QDialog):
                 tableRow += 1
 
     def Return(self):
-        usermenu = UserMenu()
-        widget.addWidget(usermenu)
+        accountUserMenu = AccountUserMenu()
+        widget.addWidget(accountUserMenu)
         widget.setFixedWidth(730)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -454,8 +469,8 @@ class UpdateAnAccountInfos(QDialog):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def Return(self):
-        usermenu = UserMenu()
-        widget.addWidget(usermenu)
+        accountUserMenu = AccountUserMenu()
+        widget.addWidget(accountUserMenu)
         widget.setFixedWidth(730)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -479,8 +494,8 @@ class UpdateUsername(QDialog):
         try:
             update_account_username(user_id, username, account)
             ShowInformationPopup("Success", "Account's Username Updated Successfully !")
-            usermenu = UserMenu()
-            widget.addWidget(usermenu)
+            accountUserMenu = AccountUserMenu()
+            widget.addWidget(accountUserMenu)
             widget.setFixedWidth(730)
             widget.setFixedHeight(510)
             widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -514,8 +529,8 @@ class UpdateEmail(QDialog):
             try:
                 update_account_email(user_id, email, account)
                 ShowInformationPopup("Success", "Account's Email Updated Successfully !")
-                usermenu = UserMenu()
-                widget.addWidget(usermenu)
+                accountUserMenu = AccountUserMenu()
+                widget.addWidget(accountUserMenu)
                 widget.setFixedWidth(730)
                 widget.setFixedHeight(510)
                 widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -558,8 +573,8 @@ class UpdatePassword(QDialog):
             try:
                 update_account_password(user_id, encrypted_password, account)
                 ShowInformationPopup("Success", "Account's Password Updated Successfully !")
-                usermenu = UserMenu()
-                widget.addWidget(usermenu)
+                accountUserMenu = AccountUserMenu()
+                widget.addWidget(accountUserMenu)
                 widget.setFixedWidth(730)
                 widget.setFixedHeight(510)
                 widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -611,8 +626,8 @@ class DeleteAnAccount(QDialog):
 
 
     def Return(self):
-        usermenu = UserMenu()
-        widget.addWidget(usermenu)
+        accountUserMenu = AccountUserMenu()
+        widget.addWidget(accountUserMenu)
         widget.setFixedWidth(730)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -620,9 +635,42 @@ class DeleteAnAccount(QDialog):
     def Quit(self):
         sys.exit()
 
+# TODO :
+class AddACreditCard(QDialog):
+    pass
+
+class CreditCardSelection(QDialog):
+    pass
+
+class GetACreditCardInfos(QDialog):
+    pass
+
+class ListAllCreditCards(QDialog):
+    pass
+
+class UpdateACreditCardInfos(QDialog):
+    pass
+
+class UpdateCardName(QDialog):
+    pass
+
+class UpdateCardholderName(QDialog):
+    pass
+
+class UpdateCardNumber(QDialog):
+    pass
+
+class UpdateCardExpirationDate(QDialog):
+    pass
+
+class UpdateCardCVV(QDialog):
+    pass
+
+class DeleteACreditCard(QDialog):
+    pass
+
 
 # Main Part :
-
 if __name__ == '__main__':
     if not path.exists('passwords.db'):
         create_db()
@@ -634,7 +682,7 @@ if __name__ == '__main__':
     widget.setFixedWidth(725)
     widget.setFixedHeight(480)
     widget.setWindowIcon(QtGui.QIcon("LOGO.png"))
-    widget.setWindowTitle("Password Manager - Testing Version")
+    widget.setWindowTitle("Louay's Password Manager ")
     widget.show()
     app.exec_()
     

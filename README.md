@@ -47,12 +47,17 @@ sudo apt-get install python3
 ```
 
 <h3>Install required packages</h3>
-<p>Open the terminal and run</p>
+<p>Open the terminal and run :</p>
 
 ```
 pip install cryptography PyQt5
 ```
 
+<p> Or just simply do :</p>
+
+```
+pip install -r requirements.txt
+```
 
 <h2>Using</h2>
 <p>To use the manager just open the terminal and run main.py with</p>

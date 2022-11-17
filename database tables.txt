@@ -1,0 +1,33 @@
+Table Users
+    id : INTEGER PRIMARY KEY AUTOINCREMENT
+    name : TEXT NOT NULL UNIQUE
+    master_password : BLOB NOT NULL 
+    key : BLOB NOT NULL
+
+Table Accounts
+    account_name : TEXT NOT NULL UNIQUE
+    email : TEXT NOT NULL
+    password : BLOB NOT NULL
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+
+Table credit_cards 
+    credit_card_name : TEXT NOT NULL
+    credit_cardholder_name : TEXT NOT NULL
+    credit_card_number : TEXT NOT NULL
+    CVV : INTEGER NOT NULL
+    expiration_date : TEXT NOT NULL
+    user_id : INTEGER NOT NULL
+    FOREIGN KEY (user_id) REFERENCES users(id)
+
+
+Sign In : 745 - 525
+Sign Up : 760 - 525
+delete account : 620 - 450
+delete user : 715 - 480
+add an account : 755 - 525
+all saved accounts : 745 - 525
+get infos : 765 - 525
+update infos : 630 - 350
+user menu : 730 - 510
+main menu : 725 - 480
+

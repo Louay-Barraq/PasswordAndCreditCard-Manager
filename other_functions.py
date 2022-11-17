@@ -35,13 +35,6 @@ def Check(email):
     else :
         return False
 
-# Function to install the library Cryptography if it's not installed
-def Library():
-    try:
-        import cryptography
-    except error:
-        os.system("pip install cryptography")
-
 
 # Function to show a Warning Popup Message
 def ShowWarningPopup(text):
@@ -50,7 +43,7 @@ def ShowWarningPopup(text):
     msg.setText(text)
     msg.setIcon(QMessageBox.Warning)
 
-    x = msg.exec_()
+    msg.exec_()
 
 
 # Function to show a Warning Popup Message
@@ -60,4 +53,4 @@ def ShowInformationPopup(title, text):
     msg.setText(text)
     msg.setIcon(QMessageBox.Information)
 
-    x = msg.exec_()
+    msg.exec_()

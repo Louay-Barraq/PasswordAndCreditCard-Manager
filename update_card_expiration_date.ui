@@ -14,15 +14,15 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 170, 0);</string>
+   <string notr="true">background-color: rgb(255, 85, 127);</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>110</x>
      <y>20</y>
-     <width>401</width>
-     <height>51</height>
+     <width>451</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
@@ -31,19 +31,41 @@
      <pointsize>22</pointsize>
      <weight>75</weight>
      <bold>true</bold>
+     <strikeout>false</strikeout>
     </font>
    </property>
    <property name="text">
-    <string>Update An Account's Infos</string>
+    <string>Update Card's Expiration Date</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="UpdateUsername">
+  <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>130</y>
-     <width>211</width>
-     <height>51</height>
+     <x>30</x>
+     <y>410</y>
+     <width>131</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Testing Version</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ReturnButton">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>400</y>
+     <width>93</width>
+     <height>28</height>
     </rect>
    </property>
    <property name="font">
@@ -58,16 +80,40 @@
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>Update Username</string>
+    <string>Return</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="UpdateEmail">
+  <widget class="QPushButton" name="Update">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>230</x>
+     <y>300</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Update</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
      <y>200</y>
-     <width>211</width>
-     <height>51</height>
+     <width>191</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -76,44 +122,21 @@
      <pointsize>12</pointsize>
      <weight>75</weight>
      <bold>true</bold>
+     <strikeout>false</strikeout>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
-    <string>Update Email</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="UpdatePassword">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>270</y>
-     <width>211</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="text">
-    <string>Update Password</string>
+    <string>Card's Expiration Date :</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Exit">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>390</y>
+     <x>510</x>
+     <y>400</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -133,28 +156,17 @@
     <string>Exit</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="ReturnButton">
+  <widget class="QLineEdit" name="CardExpirationDate">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>390</y>
-     <width>93</width>
-     <height>28</height>
+     <x>210</x>
+     <y>200</y>
+     <width>381</width>
+     <height>41</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="text">
-    <string>Return</string>
    </property>
   </widget>
  </widget>
