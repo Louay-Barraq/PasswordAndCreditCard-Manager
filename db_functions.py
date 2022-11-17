@@ -1,5 +1,7 @@
 import sqlite3
  
+# notes TEXT NULL,
+
 def connect():
     # Connecting to the database
     connection = sqlite3.connect("passwords.db")
@@ -39,6 +41,20 @@ def create_db():
 
     cursor.execute(CREATE_ACCOUNTS_QUERY)
 
+    # Query to create the credit cards' table
+    CREATE_CREDIT_CARDS_QUERY = """
+    CREATE TABLE credit_cards (
+        credit_card_name TEXT NOT NULL ,
+        credit_cardholder_name TEXT NOT NULL,
+        credit_card_number TEXT NOT NULL,
+        CVV INT NOT NULL,
+        expiration_date TEXT NOT NULL,
+        user_id INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id));
+    """
+
+    cursor.execute(CREATE_CREDIT_CARDS_QUERY)
+
     disconnect(connection)
 
 
@@ -76,6 +92,7 @@ def delete_user(user_id):
     # Query to delete a given user
     DELETE_USER_QUERY = f"""DELETE FROM users WHERE id = {user_id}"""
     DELETE_USERS_SERVICES_QUERY = f"""DELETE FROM accounts WHERE user_id = {user_id}"""
+    DELETE_USERS_SERVICES_QUERY = f"""DELETE FROM credit_cards WHERE user_id = {user_id}"""
 
     cursor.execute(DELETE_USER_QUERY)
     cursor.execute(DELETE_USERS_SERVICES_QUERY)
@@ -130,14 +147,14 @@ def get_key(user_id):
 def add_account(account_name, username, email, password, user_id):
     connection, cursor = connect()
 
-    # Query to add a new service for a user
-    ADD_SERVICE_QUERY = f"""
+    # Query to add a new account for a user
+    ADD_ACCOUNT_QUERY = f"""
     INSERT INTO accounts 
     (account_name, username, email, password, user_id) VALUES 
     ("{account_name}", "{username}", "{email}", "{password}", "{user_id}");
     """
 
-    cursor.execute(ADD_SERVICE_QUERY)
+    cursor.execute(ADD_ACCOUNT_QUERY)
 
     disconnect(connection)
 
@@ -191,12 +208,12 @@ def delete_account(user_id, account_name):
     connection, cursor = connect()
 
     # Query to delete an account of a user
-    DELETE_ACCOUNT_USER = f"""
+    DELETE_ACCOUNT = f"""
     DELETE FROM accounts
     WHERE user_id = {user_id} AND account_name = "{account_name}";
     """
 
-    cursor.execute(DELETE_ACCOUNT_USER)
+    cursor.execute(DELETE_ACCOUNT)
 
     disconnect(connection)
 
@@ -233,3 +250,144 @@ def get_account_infos(user_id, account_name):
     pwd = infos[0][2][2::]
 
     return username, email, pwd
+
+
+def add_credit_card(cc_name, credit_cardholder, cc_number, cvv, exp_date, user_id):
+    connection, cursor = connect()
+
+    # Query to add a new credit card for a user
+    ADD_CREDIT_CARD_QUERY = f"""
+    INSERT INTO credit_cards 
+    (credit_card_name, credit_cardholder_name, credit_card_number, CVV, expiration_date, user_id) VALUES 
+    ("{cc_name}", "{credit_cardholder}", "{cc_number}", "{cvv}", "{exp_date}", "{user_id}");
+    """
+
+    cursor.execute(ADD_CREDIT_CARD_QUERY)
+
+    disconnect(connection)
+
+
+def update_credit_card_name(user_id, new_cc_name, cc_name):
+    connection, cursor = connect()
+
+    # Query to update the name of a credit card of a user
+    CREDIT_CARD_NAME_UPDATE_QUERY = f"""
+    UPDATE credit_cards
+    SET credit_card_name = "{new_cc_name}"
+    WHERE user_id = "{user_id}" AND credit_card_name = "{cc_name}"; 
+    """
+
+    cursor.execute(CREDIT_CARD_NAME_UPDATE_QUERY)
+
+    disconnect(connection)
+
+
+def update_credit_card_number(user_id, new_cc_number, cc_name):
+    connection, cursor = connect()
+
+    # Query to update the number of a credit card of a user
+    CREDIT_CARD_NUMBER_UPDATE_QUERY = f"""
+    UPDATE credit_cards
+    SET credit_card_number = "{new_cc_number}"
+    WHERE user_id = "{user_id}" AND credit_card_name = "{cc_name}"; 
+    """
+
+    cursor.execute(CREDIT_CARD_NUMBER_UPDATE_QUERY)
+
+    disconnect(connection)  
+
+
+def update_credit_cardholder_name(user_id, new_cardholder_name, cc_name):
+    connection, cursor = connect()
+
+    # Query to update the holder's name of a credit card of a user
+    CREDIT_CARDHOLDER_NAME_UPDATE_QUERY = f"""
+    UPDATE credit_cards
+    SET credit_cardholder_name = "{new_cardholder_name}"
+    WHERE user_id = "{user_id}" AND credit_card_name = "{cc_name}"; 
+    """
+
+    cursor.execute(CREDIT_CARDHOLDER_NAME_UPDATE_QUERY)
+
+    disconnect(connection)    
+
+
+def update_credit_card_expiration_date(user_id, new_exp_date, cc_name):
+    connection, cursor = connect()
+
+    # Query to update the expiration date of a credit card of a user
+    CREDIT_CARD_EXPIRATION_DATE_UPDATE_QUERY = f"""
+    UPDATE credit_cards
+    SET expiration_date = "{new_exp_date}"
+    WHERE user_id = "{user_id}" AND credit_card_name = "{cc_name}"; 
+    """
+
+    cursor.execute(CREDIT_CARD_EXPIRATION_DATE_UPDATE_QUERY)
+
+    disconnect(connection)        
+
+
+def update_credit_card_CVV(user_id, new_CVV, cc_name):
+    connection, cursor = connect()
+
+    # Query to update the CVV of a credit card of a user
+    CREDIT_CARD_CVV_UPDATE_QUERY = f"""
+    UPDATE credit_cards
+    SET CVV = "{new_CVV}"
+    WHERE user_id = "{user_id}" AND credit_card_name = "{cc_name}"; 
+    """
+
+    cursor.execute(CREDIT_CARD_CVV_UPDATE_QUERY)
+
+    disconnect(connection) 
+
+
+def delete_credit_card(user_id, cc_name):
+    connection, cursor = connect()
+
+    # Query to delete a credit card of a user
+    DELETE_CREDIT_CARD = f"""
+    DELETE FROM credit_cards
+    WHERE user_id = {user_id} AND credit_card_name = "{cc_name}";
+    """
+
+    cursor.execute(DELETE_CREDIT_CARD)
+
+    disconnect(connection)
+
+
+def get_existing_credit_cards(user_id):
+    connection, cursor = connect()
+
+    # Query to get all the credit cards of a user
+    GET_EXISTING_CREDIT_CARDS_QUERY = f"""
+    SELECT credit_card_name FROM credit_cards  
+    WHERE user_id = "{user_id}";
+    """
+
+    cursor.execute(GET_EXISTING_CREDIT_CARDS_QUERY)
+    credit_cards = cursor.fetchall()
+
+    return credit_cards 
+
+
+def get_credit_card_infos(user_id, credit_card_name):
+    connection, cursor = connect()
+
+    # Query to get all the infos of a credit card of a user
+    GET_CREDIT_CARD_INFOS_QUERY = f"""
+    SELECT credit_card_name, credit_cardholder_name, credit_card_number, CVV, expiration_date FROM credit_cards
+    WHERE user_id = "{user_id}" AND credit_card_name = "{credit_card_name}";
+    """
+
+    cursor.execute(GET_CREDIT_CARD_INFOS_QUERY)
+    infos = cursor.fetchall()
+
+    cc_name = infos[0][0]
+    ccholder_name = infos[0][1]
+    cc_number = infos[0][2][2::]
+    cc_CVV = infos[0][3]
+    cc_exp_date = infos[0][4]
+
+
+    return cc_name, ccholder_name, cc_number, cc_CVV, cc_exp_date
