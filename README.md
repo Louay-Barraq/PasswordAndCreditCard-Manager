@@ -3,8 +3,8 @@
 ---
 
 <p align="center">
-  This password manager can store multiple services ( accounts or credit cards) for multiple users.
-  The users , their credit cards and their accounts are stored in a database.  
+  This password manager can store multiple services [accounts or credit cards] for multiple users.
+  The users, their credit cards and their accounts are stored in a database.  
   All the passwords and credit card numbers get encrypted before getting stored in the database and get decrypted before being shown to the user when asked to. 
 </p>
 
