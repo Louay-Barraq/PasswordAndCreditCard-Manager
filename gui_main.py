@@ -10,7 +10,7 @@ from db_functions import (create_db, get_account_infos, get_existing_accounts,ge
     update_credit_card_name, update_credit_cardholder_name, update_credit_card_number, update_credit_card_expiration_date,
     update_credit_card_CVV, delete_credit_card, get_credit_card_infos, get_existing_credit_cards)
 from encryption_functions import (generate_key, get_hash, encrypt_password, decrypt_password)
-from other_functions import Check, ShowWarningPopup, ShowInformationPopup
+from other_functions import CheckEmail, ShowWarningPopup, ShowInformationPopup, CheckExpirationDate
 
 
 class MainMenu(QMainWindow):
@@ -121,8 +121,10 @@ class SignIn(QDialog):
             global key 
             key = get_key(user_id)
 
-            accountUserMenu = AccountUserMenu()
-            widget.addWidget(accountUserMenu)
+            serviceSelection = ServiceSelection()
+            widget.addWidget(serviceSelection)
+            widget.setFixedWidth(600)
+            widget.setFixedHeight(350)
             widget.setCurrentIndex(widget.currentIndex() + 1)
 
             # Returning the username and the key
@@ -191,17 +193,38 @@ class DelAUser(QDialog):
         sys.exit()
 
 
-class CreditCardUserMenu(QDialog):
+class ServiceSelection(QDialog):
     def __init__(self):
-        super(CreditCardUserMenu, self).__init__()
-        loadUi("cc_user_menu.ui", self)
-        self.AddANewCreditCard.clicked.connect(self.GoToAddANewCreditCard)
-        self.ListAllSavedCreditCards.clicked.connect(self.GoToListCreditCards)
-        self.GetACreditCardInfos.clicked.connect(self.GoToGetInfos)
-        self.UpdateACreditCardInfos.clicked.connect(self.GoToUpdateInfos)
-        self.DeleteAnExistingCreditCard.clicked.connect(self.GoToDeleteCreditCard)
+        super(ServiceSelection, self).__init__()
+        loadUi("service_selection.ui", self)
+        self.Accounts.clicked.connect(self.MoveToAccountsMenu)
+        self.CCards.clicked.connect(self.MoveToCreditCardsMenu)
+        self.ReturnButton.clicked.connect(self.Return)
         self.Exit.clicked.connect(self.Quit)
-        self.Return.clicked.connect(self.ReturnToServiceSelection)
+
+    def MoveToAccountsMenu(self):
+        accountUserMenu = AccountUserMenu()
+        widget.addWidget(accountUserMenu)
+        widget.setFixedWidth(750)
+        widget.setFixedHeight(515)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def MoveToCreditCardsMenu(self):
+        creditCardUserMenu = CreditCardUserMenu()
+        widget.addWidget(creditCardUserMenu)
+        widget.setFixedWidth(750)
+        widget.setFixedHeight(510)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Return(self):
+        mainMenu = MainMenu()
+        widget.addWidget(mainMenu)
+        widget.setFixedWidth(725)
+        widget.setFixedHeight(490)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
 
 
 class AccountUserMenu(QDialog):
@@ -214,6 +237,7 @@ class AccountUserMenu(QDialog):
         self.UpdateAnAccountInfos.clicked.connect(self.GoToUpdateInfos)
         self.DeleteAnExistingAccount.clicked.connect(self.GoToDeleteAccount)
         self.Exit.clicked.connect(self.Quit)
+        self.ReturnButton.clicked.connect(self.Return)
 
     def GoToAddANewAccount(self):
         addAnAccount = AddAnAccount()
@@ -240,7 +264,7 @@ class AccountUserMenu(QDialog):
         accountSelection = AccountSelection()
         widget.addWidget(accountSelection)
         widget.setFixedWidth(630)
-        widget.setFixedHeight(350)
+        widget.setFixedHeight(355)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def GoToDeleteAccount(self):
@@ -248,6 +272,71 @@ class AccountUserMenu(QDialog):
         widget.addWidget(deleteAnAccount)
         widget.setFixedWidth(620)
         widget.setFixedHeight(450)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Return(self):
+        serviceSelection = ServiceSelection()
+        widget.addWidget(serviceSelection)
+        widget.setFixedWidth(600)
+        widget.setFixedHeight(340)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
+
+class CreditCardUserMenu(QDialog):
+    def __init__(self):
+        super(CreditCardUserMenu, self).__init__()
+        loadUi("cc_user_menu.ui", self)
+        self.AddANewCreditCard.clicked.connect(self.GoToAddANewCreditCard)
+        self.ListAllSavedCreditCards.clicked.connect(self.GoToListCreditCards)
+        self.GetACreditCardInfos.clicked.connect(self.GoToGetInfos)
+        self.UpdateACreditCardInfos.clicked.connect(self.GoToUpdateInfos)
+        self.DeleteAnExistingCreditCard.clicked.connect(self.GoToDeleteCreditCard)
+        self.Exit.clicked.connect(self.Quit)
+        self.ReturnButton.clicked.connect(self.Return)
+
+    def GoToAddANewCreditCard(self):
+        addACreditCard = AddACreditCard()
+        widget.addWidget(addACreditCard)
+        widget.setFixedWidth(800)
+        widget.setFixedHeight(525)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def GoToListCreditCards(self):
+        listAllCreditCards = ListAllCreditCards()
+        widget.addWidget(listAllCreditCards)
+        widget.setFixedWidth(745)
+        widget.setFixedHeight(525)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def GoToGetInfos(self):
+        getACreditCardInfos = GetACreditCardInfos()
+        widget.addWidget(getACreditCardInfos)
+        widget.setFixedWidth(765)
+        widget.setFixedHeight(525)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def GoToUpdateInfos(self):
+        creditCardSelection = CreditCardSelection()
+        widget.addWidget(creditCardSelection)
+        widget.setFixedWidth(630)
+        widget.setFixedHeight(355)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def GoToDeleteCreditCard(self):
+        deleteACreditCard = DeleteACreditCard()
+        widget.addWidget(deleteACreditCard)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(450)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Return(self):
+        serviceSelection = ServiceSelection()
+        widget.addWidget(serviceSelection)
+        widget.setFixedWidth(600)
+        widget.setFixedHeight(350)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def Quit(self):
@@ -281,7 +370,7 @@ class AddAnAccount(QDialog):
                 break
 
         while condition == False:
-            if Check(account_email) == False:
+            if CheckEmail(account_email) == False:
                 ShowWarningPopup("Given Email Isn't Valid !")
                 break
             if account_password != account_password_confirmation:
@@ -418,7 +507,6 @@ class ListAllAccounts(QDialog):
         else:
             # Getting the number of rows
             accounts_number = len(accounts)
-            print(accounts_number)
             # Listing All The Accounts
             self.Table.setRowCount(accounts_number)
             tableRow = 0
@@ -525,7 +613,7 @@ class UpdateEmail(QDialog):
     def UpEmail(self): 
         email = self.Email.text()
         # Function to update the account's email
-        if Check(email) == True:
+        if CheckEmail(email) == True:
             try:
                 update_account_email(user_id, email, account)
                 ShowInformationPopup("Success", "Account's Email Updated Successfully !")
@@ -635,39 +723,535 @@ class DeleteAnAccount(QDialog):
     def Quit(self):
         sys.exit()
 
-# TODO :
+
 class AddACreditCard(QDialog):
-    pass
+    def __init__(self):
+        super(AddACreditCard, self).__init__()
+        loadUi("add_a_new_cc.ui", self)
+        self.Add.clicked.connect(self.AddCreditCard)
+        self.Exit.clicked.connect(self.Quit)
+        self.ReturnButton.clicked.connect(self.Return)
+
+    def AddCreditCard(self):
+        cardName = self.CardName.text()
+        cardholderName = self.CardholderName.text()
+        cardNumber = self.CardNumber.text()
+        cardExpDate = self.CardExpirationDate.text()
+        cardCVV = self.CardCVV.text()
+
+        all_ccs = get_existing_credit_cards(user_id)
+
+        # Getting the credit card's name and checking if it already exists 
+        condition = True
+        for cc in all_ccs:
+            if cardName == cc[0]:
+                ShowWarningPopup("Credit Card Already Exists !")
+                condition = False
+                break
+        else:
+            condition = True
+
+        while condition:
+            # Fields shouldn't be empty
+            if (len(cardName) == 0) or (len(cardholderName) == 0) or (len(cardNumber) == 0) or (len(cardExpDate) == 0) or (len(cardCVV) == 0):
+                ShowWarningPopup("All Required Infos Should Be Given !")
+                break
+
+            # Condition on the card's number
+            if ((len(cardNumber) < 13) or (len(cardNumber) > 19)):
+                ShowWarningPopup("This Credit Card's Number Isn't Valid !")
+                break
+            
+            # Condition on the card's expiration date
+            if CheckExpirationDate(cardExpDate) == False:
+                ShowWarningPopup("This Credit Card Expiration Date Isn't Valid !")
+                break
+
+            # Condition on the card's CVV
+            if (len(cardCVV) != 3) or (cardCVV.isdigit() == False):
+                ShowWarningPopup("This Credit Card's CVV Isn't Valid !")
+                break
+
+            encrypted_CVV = encrypt_password(key, cardCVV)
+            encrypted_Number = encrypt_password(key, cardNumber)
+
+            try:
+                add_credit_card(cardName, cardholderName, encrypted_Number, encrypted_CVV, cardExpDate, user_id)
+                ShowInformationPopup("Success", "Credit Card Added Successfully !")
+                creditCardUserMenu = CreditCardUserMenu()
+                widget.addWidget(creditCardUserMenu)
+                widget.setFixedWidth(740)
+                widget.setFixedHeight(510)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+            except sqlite3.Error:
+                ShowWarningPopup("An Error Occured, Try Again Later !")
+                break
+
+
+    def Return(self):
+        creditCardUserMenu = CreditCardUserMenu()
+        widget.addWidget(creditCardUserMenu)
+        widget.setFixedWidth(740)
+        widget.setFixedHeight(510)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class CreditCardSelection(QDialog):
-    pass
+    def __init__(self):
+        super(CreditCardSelection, self).__init__()
+        loadUi("credit_card_to_update.ui", self)
+        self.Confirm.clicked.connect(self.SelectCreditCard)
+        self.ExitButton.clicked.connect(self.Quit)
+        self.ReturnButton.clicked.connect(self.Return)
+
+    def SelectCreditCard(self):
+        global cc_name
+        cc_name = self.CreditCardName.text()
+
+        # Checking if the credit card already exists
+        all_ccs = get_existing_credit_cards(user_id)
+
+        exists = False
+        for cc in all_ccs:
+            if cc[0] == cc_name:
+                exists = True
+
+        if exists == False:
+            ShowWarningPopup("Account Doesn't Exist !")
+            
+        else:
+            updateACreditCardInfos = UpdateACreditCardInfos()
+            widget.addWidget(updateACreditCardInfos)
+            widget.setFixedWidth(620)
+            widget.setFixedHeight(435)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
+
+
+    def Return(self):
+        creditCardUserMenu = CreditCardUserMenu()
+        widget.addWidget(creditCardUserMenu)
+        widget.setFixedWidth(750)
+        widget.setFixedHeight(520)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class GetACreditCardInfos(QDialog):
-    pass
+    def __init__(self):
+        super(GetACreditCardInfos, self).__init__()
+        loadUi("get_a_cc_infos.ui", self)
+        self.Show.clicked.connect(self.ShowCreditCardInfos)
+        self.Exit.clicked.connect(self.Quit)
+        self.ReturnButton.clicked.connect(self.Return)
+
+    def ShowCreditCardInfos(self):
+        cc_name = self.CreditCardName.text()
+        while True:
+            if (len(cc_name) == 0):
+                ShowWarningPopup("Please Fill In The Field")
+                break
+
+            all_ccs = get_existing_credit_cards(user_id)
+            if len(all_ccs) == 0:
+                ShowWarningPopup("There Are No Accounts Saved !")
+                break
+
+            else:
+                # Checking if the credit card already exists
+                exists = False
+                for acc in all_ccs:
+                    if acc[0] == cc_name:
+                        exists = True
+
+                if exists == False:
+                    ShowWarningPopup("Account Doesn't Exist !")
+                    break
+
+                else:
+                    cc_name, ccholder_name, cc_number, cc_CVV, cc_exp_date = get_credit_card_infos(user_id, cc_name)
+
+                    decrypted_cc_number = decrypt_password(key, cc_number)
+                    decrypted_cc_CVV = decrypt_password(key, cc_CVV) 
+
+                    self.CreditCardholderName.setText(ccholder_name)
+                    self.CreditCardNumber.setText(decrypted_cc_number)
+                    self.CreditCardExpirationDate.setText(cc_exp_date)
+                    self.CreditCardCVV.setText(decrypted_cc_CVV)
+                    break
+
+
+
+    def Return(self):
+        creditCardUserMenu = CreditCardUserMenu()
+        widget.addWidget(creditCardUserMenu)
+        widget.setFixedWidth(740)
+        widget.setFixedHeight(510)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class ListAllCreditCards(QDialog):
-    pass
+    def __init__(self):
+        super(ListAllCreditCards, self).__init__()
+        loadUi("all_saved_ccs.ui", self)
+        self.Show.clicked.connect(self.GetInfos)
+        self.ReturnButton.clicked.connect(self.Return)
+        self.Exit.clicked.connect(self.Quit)
+
+
+    def GetInfos(self): 
+        # Function to display the credit cards
+        all_ccs = get_existing_credit_cards(user_id)
+        if len(all_ccs) == 0:
+            ShowWarningPopup("There Are No Credit Cards Saved !")
+
+        else:
+            # Getting the number of rows
+            ccs_number = len(all_ccs)
+            # Listing All The Credit Cards
+            self.Table.setRowCount(ccs_number)
+            tableRow = 0
+            for row in all_ccs:
+                self.Table.setItem(tableRow, 0, QtWidgets.QTableWidgetItem(row[0]))
+                tableRow += 1
+
+
+    def Return(self):
+        creditCardUserMenu = CreditCardUserMenu()
+        widget.addWidget(creditCardUserMenu)
+        widget.setFixedWidth(740)
+        widget.setFixedHeight(510)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class UpdateACreditCardInfos(QDialog):
-    pass
+    def __init__(self):
+        super(UpdateACreditCardInfos, self).__init__()
+        loadUi("update_a_credit_card_infos.ui", self)
+        self.UpdateCardName.clicked.connect(self.GoToUpdateCCName)
+        self.UpdateCardholderName.clicked.connect(self.GoToUpdateCCholderName)
+        self.UpdateNumber.clicked.connect(self.GoToUpdateCCNumber)
+        self.UpdateCVV.clicked.connect(self.GoToUpdateCC_CVV)
+        self.UpdateExpirationDate.clicked.connect(self.GoToUpdateCCExpirationDate)
+        self.ReturnButton.clicked.connect(self.Return)
+        self.Exit.clicked.connect(self.Quit)
+
+    def GoToUpdateCCName(self):
+        updateCardName = UpdateCardName()
+        widget.addWidget(updateCardName)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(450)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def GoToUpdateCCholderName(self):
+        updateCardholderName = UpdateCardholderName()
+        widget.addWidget(updateCardholderName)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(450)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def GoToUpdateCCNumber(self):
+        updateCardNumber = UpdateCardNumber()
+        widget.addWidget(updateCardNumber)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(450)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def GoToUpdateCC_CVV(self):
+        updateCardCVV = UpdateCardCVV()
+        widget.addWidget(updateCardCVV)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(450)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def GoToUpdateCCExpirationDate(self):
+        updateCardExpirationDate = UpdateCardExpirationDate()
+        widget.addWidget(updateCardExpirationDate)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(450)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Return(self):
+        creditCardSelection = CreditCardSelection()
+        widget.addWidget(creditCardSelection)
+        widget.setFixedWidth(625)
+        widget.setFixedHeight(345)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class UpdateCardName(QDialog):
-    pass
+    def __init__(self):
+        super(UpdateCardName, self).__init__()
+        loadUi("update_card_name.ui", self)
+        self.Update.clicked.connect(self.UpdateCCName)
+        self.ReturnButton.clicked.connect(self.Return)
+        self.Exit.clicked.connect(self.Quit)
+
+    def UpdateCCName(self):
+        credit_card = self.CardName.text()
+        while True:
+            if (len(credit_card) == 0):
+                ShowWarningPopup("Please Fill In The Field")
+                break
+            try:
+                update_credit_card_name(user_id, credit_card, cc_name)
+                ShowInformationPopup("Success", f"Credit Card's Name Updated Successfully !")
+                updateACreditCardInfos = UpdateACreditCardInfos()
+                widget.addWidget(updateACreditCardInfos)
+                widget.setFixedWidth(620)
+                widget.setFixedHeight(435)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                break
+            except sqlite3.Error:
+                ShowWarningPopup("An Error Occured, Try Again Later !")
+                break
+
+
+    def Return(self):
+        updateACreditCardInfos = UpdateACreditCardInfos()
+        widget.addWidget(updateACreditCardInfos)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(435)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class UpdateCardholderName(QDialog):
-    pass
+    def __init__(self):
+        super(UpdateCardholderName, self).__init__()
+        loadUi("update_cardholder_name.ui", self)
+        self.Update.clicked.connect(self.UpdateCCholderName)
+        self.ReturnButton.clicked.connect(self.Return)
+        self.Exit.clicked.connect(self.Quit)
+
+    def UpdateCCholderName(self):
+        credit_cardholder_name = self.CardholderName.text()
+        while True:
+            if (len(credit_cardholder_name) == 0):
+                ShowWarningPopup("Please Fill In The Field")
+                break
+            try:
+                update_credit_cardholder_name(user_id, credit_cardholder_name, cc_name)
+                ShowInformationPopup("Success", "Credit Cardholder's Name Updated Successfully !")
+                updateACreditCardInfos = UpdateACreditCardInfos()
+                widget.addWidget(updateACreditCardInfos)
+                widget.setFixedWidth(620)
+                widget.setFixedHeight(435)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                break
+            except sqlite3.Error:
+                ShowWarningPopup("An Error Occured, Try Again Later !")
+                break
+
+
+    def Return(self):
+        updateACreditCardInfos = UpdateACreditCardInfos()
+        widget.addWidget(updateACreditCardInfos)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(435)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class UpdateCardNumber(QDialog):
-    pass
+    def __init__(self):
+        super(UpdateCardNumber, self).__init__()
+        loadUi("update_card_number.ui", self)
+        self.Update.clicked.connect(self.UpdateCCNumber)
+        self.ReturnButton.clicked.connect(self.Return)
+        self.Exit.clicked.connect(self.Quit)
+
+    def UpdateCCNumber(self):
+        credit_card_number = self.CardNumber.text()
+        while True:
+            if (len(credit_card_number) == 0):
+                ShowWarningPopup("Please Fill In The Field")
+                break
+            if ((len(credit_card_number) < 13) or (len(credit_card_number) > 19) or (credit_card_number.isdigit() == False)):
+                ShowWarningPopup("The Given Credit Card's Number Isn't Valid !")
+                break
+            
+            encrypted_number = encrypt_password(key, credit_card_number)
+            try:
+                update_credit_card_number(user_id, encrypted_number, cc_name)
+                ShowInformationPopup("Success", "Credit Card's Number Updated Successfully !")
+                updateACreditCardInfos = UpdateACreditCardInfos()
+                widget.addWidget(updateACreditCardInfos)
+                widget.setFixedWidth(620)
+                widget.setFixedHeight(435)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                break
+            except sqlite3.Error:
+                ShowWarningPopup("An Error Occured, Try Again Later !")
+                break
+
+
+    def Return(self):
+        updateACreditCardInfos = UpdateACreditCardInfos()
+        widget.addWidget(updateACreditCardInfos)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(435)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class UpdateCardExpirationDate(QDialog):
-    pass
+    def __init__(self):
+        super(UpdateCardExpirationDate, self).__init__()
+        loadUi("update_card_expiration_date.ui", self)
+        self.Update.clicked.connect(self.UpdateCCExpirationDate)
+        self.ReturnButton.clicked.connect(self.Return)
+        self.Exit.clicked.connect(self.Quit)
+
+    def UpdateCCExpirationDate(self):
+        cc_exp_date = self.CardExpirationDate.text()
+        while True:
+            if (len(cc_exp_date) == 0):
+                ShowWarningPopup("Please Fill In The Field")
+                break
+            if CheckExpirationDate(cc_exp_date) == False:
+                ShowWarningPopup("This Given Credit Card's Expiration Date Isn't Valid !")
+                break
+            try:
+                update_credit_card_expiration_date(user_id, cc_exp_date, cc_name)
+                ShowInformationPopup("Success", "Credit Card's Expiration Date Updated Successfully !")
+                updateACreditCardInfos = UpdateACreditCardInfos()
+                widget.addWidget(updateACreditCardInfos)
+                widget.setFixedWidth(620)
+                widget.setFixedHeight(435)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                break
+            except sqlite3.Error:
+                ShowWarningPopup("An Error Occured, Try Again Later !")
+                break
+
+
+    def Return(self):
+        updateACreditCardInfos = UpdateACreditCardInfos()
+        widget.addWidget(updateACreditCardInfos)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(435)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class UpdateCardCVV(QDialog):
-    pass
+    def __init__(self):
+        super(UpdateCardCVV, self).__init__()
+        loadUi("update_card_CVV.ui", self)
+        self.Update.clicked.connect(self.UpdateCVV)
+        self.ReturnButton.clicked.connect(self.Return)
+        self.Exit.clicked.connect(self.Quit)
+
+    def UpdateCVV(self):
+        cc_CVV = self.CardCVV.text()
+        while True:
+            if (len(cc_CVV) == 0):
+                ShowWarningPopup("Please Fill In The Field")
+                break
+            if (cc_CVV.isdigit() == False) or (len(cc_CVV) != 3):
+                ShowWarningPopup("This Given Credit Card's CVV Isn't Valid !")
+                break
+                
+            encrypted_CVV = encrypt_password(key, cc_CVV)
+            try:
+                update_credit_card_CVV(user_id, encrypted_CVV, cc_name)
+                ShowInformationPopup("Success", "Credit Card's CVV Updated Successfully !")
+                updateACreditCardInfos = UpdateACreditCardInfos()
+                widget.addWidget(updateACreditCardInfos)
+                widget.setFixedWidth(620)
+                widget.setFixedHeight(435)
+                widget.setCurrentIndex(widget.currentIndex() + 1)
+                break
+            except sqlite3.Error:
+                ShowWarningPopup("An Error Occured, Try Again Later !")
+                break
+
+
+    def Return(self):
+        updateACreditCardInfos = UpdateACreditCardInfos()
+        widget.addWidget(updateACreditCardInfos)
+        widget.setFixedWidth(620)
+        widget.setFixedHeight(435)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
+
 
 class DeleteACreditCard(QDialog):
-    pass
+    def __init__(self):
+        super(DeleteACreditCard, self).__init__()
+        loadUi("delete_a_credit_card.ui", self)
+        self.Delete.clicked.connect(self.DelCreditCard)
+        self.ReturnButton.clicked.connect(self.Return)
+        self.Exit.clicked.connect(self.Quit)
+
+    def DelCreditCard(self):
+        credit_card = self.Name.text()
+        while True:
+            if len(credit_card) == 0:
+                ShowWarningPopup("Please Fill In The Field")
+                break
+            # Getting the credit card's name and checking if it already exists 
+            all_ccs = get_existing_credit_cards(user_id)
+
+            condition = True
+            for cc in all_ccs:
+                if cc[0] == credit_card:
+                    break
+            else:
+                condition = False
+
+            # In case the given credit card doesn't exist in the database
+            if condition == False:
+                ShowWarningPopup(f"This Given Credit Card Doesn't Exist !")
+                break
+            else:
+                try:
+                    delete_credit_card(user_id, credit_card)
+                    ShowInformationPopup("Success", f"Credit Card [{credit_card}] Deleted Successfully !")
+                    creditCardUserMenu = CreditCardUserMenu()
+                    widget.addWidget(creditCardUserMenu)
+                    widget.setFixedWidth(740)
+                    widget.setFixedHeight(510)
+                    widget.setCurrentIndex(widget.currentIndex() + 1)
+                    break
+                except sqlite3.Error:
+                    ShowWarningPopup("An Error Occured, Try Again Later !")
+                    break
+            
+
+    def Return(self):
+        creditCardUserMenu = CreditCardUserMenu()
+        widget.addWidget(creditCardUserMenu)
+        widget.setFixedWidth(740)
+        widget.setFixedHeight(510)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def Quit(self):
+        sys.exit()
 
 
 # Main Part :

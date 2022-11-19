@@ -6,7 +6,7 @@ from db_functions import (create_db, usernames_list, get_account_infos, get_exis
     update_credit_card_name, update_credit_card_number, update_credit_cardholder_name, get_existing_credit_cards,
     get_credit_card_infos)
 from encryption_functions import (generate_key, get_hash, encrypt_password, decrypt_password)
-from other_functions import (SleepClear, Error, Message, Check)
+from other_functions import (SleepClear, Error, Message, CheckEmail, CheckExpirationDate)
 
 
 def AllUsers():
@@ -163,7 +163,7 @@ def AddAccount(key, username):
 
     # Getting an email address and verifying if it's valid or not
     email = input("Enter The Account's Email : ")
-    while Check(email) == False:
+    while CheckEmail(email) == False:
         print("This Email Address Isn't Valid !")
         email = input("Enter The Account's Email : ")
 
@@ -269,7 +269,7 @@ def UpdateAccountInfo(username):
 
         elif choice == '2':
             new_email = input("Enter The New Email : ")
-            while Check(new_email) == False:
+            while CheckEmail(new_email) == False:
                 print("This Email Address Isn't Valid !")
                 new_email = input("Enter The New Email : ")
             try:
@@ -335,18 +335,14 @@ def AddCreditCard(key, username):
 
     # Getting the number 
     number = input("Enter The Credit Card's Number : ")
-    while ((len(number) < 13) or (len(number) > 19)):
-        print("This Credit Card Number Isn't Valid !")
+    while ((len(number) < 13) or (len(number) > 19) or (number.isdigit() == False)):
+        print("This Credit Card's Number Isn't Valid !")
         number = input("Enter The Credit Card's Number : ")
 
     # Getting the expiration date
     exp_date = input("Enter The Credit Card's Expiration Date ( Type MM/YY ) : ")
-    while (len(exp_date) != 5) or (exp_date[0:2].isdigit() == False) or (exp_date[3:-1].isdigit() == False) or (exp_date[2] != '/') or (int(exp_date[0:2]) > 12) :
+    while CheckExpirationDate(exp_date):
         print("This Credit Card Expiration Date Isn't Valid !")
-        # print("exp_date[0:2] : ", exp_date[0:2])
-        # print("exp_date[3:-1] : ", exp_date[3:-1])
-        # print("exp_date[2] : ", exp_date[2])
-        # print("int(exp_date[0:2]) : ", int(exp_date[0:2]))
         exp_date = input("As An Example On How To Enter The Expiration Date, You Could Type 07/24 \n-Enter The Credit Card's Expiration Date ( Type MM/YY ) : ")
     
     # Getting the CVV
@@ -356,11 +352,13 @@ def AddCreditCard(key, username):
         cvv = input("Enter The Credit Card's CVV : ")
        
 
-    # Encrypting Credit Card's Number ( using the same function that encrypts passwords for accounts )
+    # Encrypting Credit Card's Number and CVV ( using the same function that encrypts passwords for accounts )
     encrypted_number = encrypt_password(key, number)
+    encrypted_CVV = encrypt_password(key, cvv)
+    print(encrypted_CVV)
 
     try:
-        add_credit_card(cc_name, cardholder_name, encrypted_number, int(cvv), exp_date, user_id)
+        add_credit_card(cc_name, cardholder_name, encrypted_number, encrypted_CVV, exp_date, user_id)
         Message(f"Credit Card [ {cc_name} ] Added Successfully !")
         SleepClear(1.1)
     except sqlite3.Error:
@@ -373,7 +371,7 @@ def UpdateCreditCardInfo(username):
     key = get_key(user_id)
     credit_card = input("Which Credit Card You Want To Update Its Infos ? :")
 
-    # Checking if the account already exists
+    # Checking if the credit card already exists
     all_ccs = get_existing_credit_cards(user_id)
 
     exists = False
@@ -452,7 +450,7 @@ def UpdateCreditCardInfo(username):
                 new_cvv = input("Enter The New Card's CVV : ")
 
             try:
-                update_credit_card_CVV(user_id, new_cvv, credit_card)
+                update_credit_card_CVV(user_id, encrypt_password(new_cvv), credit_card)
                 Message(f"Credit Card [ {credit_card} ] CVV Updated Successfully")
             
             except sqlite3.Error:
@@ -520,15 +518,17 @@ def ListCreditCardInfo(username, key):
         if exists == False:
             Message("Credit Card Doesn't Exist !")
 
-        cc_name, ccholder_name, encrypted_cc_number, cc_CVV, cc_exp_date = get_credit_card_infos(user_id, credit_card_name)
+        cc_name, ccholder_name, encrypted_cc_number, encrypted_cc_CVV, cc_exp_date = get_credit_card_infos(user_id, credit_card_name)
 
         decrypted_cc_number = decrypt_password(key, encrypted_cc_number)
+        decrypted_cc_CVV = decrypt_password(key, encrypted_cc_CVV)
+
 
         Message(f"Credit Card Name : {cc_name}")
         Message(f"Credit Cardholder Name : {ccholder_name}")
         Message(f"Credit Card's Number : {decrypted_cc_number}")
         Message(f"Credit Card's Expiration Date : {cc_exp_date}")
-        Message(f"Credit Card's CVV : {cc_CVV}")
+        Message(f"Credit Card's CVV : {decrypted_cc_CVV}")
 
 
 def main():
