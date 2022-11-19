@@ -28,12 +28,25 @@ def Message(string):
     print('-' * (len(string) + 4))
 
 # Function to check if an email address is valid or not
-def Check(email):
+def CheckEmail(email):
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if(re.fullmatch(regex, email)):
         return True
     else :
         return False
+
+
+# Function to check if a credit card expiration date is valid or not
+def CheckExpirationDate(number):
+    # Length of given expiration date should be 5 characters
+    # the first two and last two characters should be integers
+    # the month's number should be between 01 and 12
+    # the given expiration date should have a / in the middle  
+    if (len(number) != 5) or (number[0:2].isdigit() == False) or (number[3::].isdigit() == False) or (number[2] != '/') or (int(number[0:2]) > 12) or (int(number[0:2]) <= 0):
+        return False
+
+    else :
+        return True
 
 
 # Function to show a Warning Popup Message
