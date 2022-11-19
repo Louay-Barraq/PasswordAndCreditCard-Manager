@@ -6,22 +6,47 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
-    <height>520</height>
+    <width>790</width>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add A New Account</string>
+   <string>Dialog</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 170, 0);</string>
   </property>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>310</y>
-     <width>221</width>
+     <x>10</x>
+     <y>190</y>
+     <width>311</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+     <strikeout>false</strikeout>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>Credit Card's Cardholder Name :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>260</y>
+     <width>231</width>
      <height>41</height>
     </rect>
    </property>
@@ -35,14 +60,36 @@
     </font>
    </property>
    <property name="text">
-    <string>Account's Password :</string>
+    <string>Credit Card's Number :</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="Add">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>450</y>
+     <x>200</x>
+     <y>10</y>
+     <width>481</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>22</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+     <strikeout>false</strikeout>
+    </font>
+   </property>
+   <property name="text">
+    <string>Get A Credit Card's Infos</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Show">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>470</y>
      <width>131</width>
      <height>41</height>
     </rect>
@@ -60,37 +107,15 @@
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>Add</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>20</y>
-     <width>381</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>22</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-     <strikeout>false</strikeout>
-    </font>
-   </property>
-   <property name="text">
-    <string>Add A New Account</string>
+    <string>Show</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>130</y>
-     <width>181</width>
+     <x>120</x>
+     <y>120</y>
+     <width>201</width>
      <height>41</height>
     </rect>
    </property>
@@ -107,61 +132,14 @@
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>Account's Name :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>190</y>
-     <width>211</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-     <strikeout>false</strikeout>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>Account's Username :</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>370</y>
-     <width>251</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-     <strikeout>false</strikeout>
-    </font>
-   </property>
-   <property name="text">
-    <string>Password's Confirmation :</string>
+    <string>Credit Card's Name :</string>
    </property>
   </widget>
   <widget class="QPushButton" name="ReturnButton">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>470</y>
+     <x>560</x>
+     <y>490</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -181,11 +159,33 @@
     <string>Return</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>330</y>
+     <width>301</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+     <strikeout>false</strikeout>
+    </font>
+   </property>
+   <property name="text">
+    <string>Credit Card's Expiration Date :</string>
+   </property>
+  </widget>
   <widget class="QPushButton" name="Exit">
    <property name="geometry">
     <rect>
-     <x>640</x>
-     <y>470</y>
+     <x>670</x>
+     <y>490</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -208,9 +208,82 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>250</y>
-     <width>211</width>
+     <x>230</x>
+     <y>80</y>
+     <width>421</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>[ Just Enter The Credit Card's Name ]</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="CreditCardNumber">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>260</y>
+     <width>381</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="CreditCardName">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>120</y>
+     <width>381</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="CreditCardholderName">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>190</y>
+     <width>381</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="CreditCardExpirationDate">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>330</y>
+     <width>381</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>400</y>
+     <width>201</width>
      <height>41</height>
     </rect>
    </property>
@@ -223,70 +296,15 @@
      <strikeout>false</strikeout>
     </font>
    </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
    <property name="text">
-    <string>Account's Email :</string>
+    <string>Credit Card's CVV :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="AccountName">
+  <widget class="QLineEdit" name="CreditCardCVV">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>130</y>
-     <width>381</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="AccountUsername">
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>190</y>
-     <width>381</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="AccountEmail">
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>250</y>
-     <width>381</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="AccountPassword">
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>310</y>
-     <width>381</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="PasswordConfirmation">
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>370</y>
+     <x>360</x>
+     <y>400</y>
      <width>381</width>
      <height>41</height>
     </rect>
