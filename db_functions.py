@@ -47,7 +47,7 @@ def create_db():
         credit_card_name TEXT NOT NULL ,
         credit_cardholder_name TEXT NOT NULL,
         credit_card_number TEXT NOT NULL,
-        CVV INT NOT NULL,
+        CVV TEXT NOT NULL,
         expiration_date TEXT NOT NULL,
         user_id INTEGER NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id));
@@ -386,7 +386,7 @@ def get_credit_card_infos(user_id, credit_card_name):
     cc_name = infos[0][0]
     ccholder_name = infos[0][1]
     cc_number = infos[0][2][2::]
-    cc_CVV = infos[0][3]
+    cc_CVV = infos[0][3][2::]
     cc_exp_date = infos[0][4]
 
 
