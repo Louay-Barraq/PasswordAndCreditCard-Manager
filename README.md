@@ -111,11 +111,3 @@ python3 gui_main.py
       
 			
 </ul>
-	
---- 
-
-# 📝 License </h1>
-
-<img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
-
-This project is licensed under the MIT license - see the <a href="https://github.com/luis705/password-manager/blob/master/LICENSE">LICENSE</a> file for details
