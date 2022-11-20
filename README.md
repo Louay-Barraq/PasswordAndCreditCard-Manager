@@ -77,7 +77,7 @@ python3 gui_main.py
 
 - [X] Handling multiple users 
 - [X] Adding or removing a user
-- [X] Each user has his own key that helps in his passwords' encryption
+- [X] Each user has his own key that helps in his passwords, credit card numbers and CVVs' encryption
 - [X] Adding, removing and checking infos of any account the user has
 - [X] Adding, removing and checking infos of any credit card the user has
 - [X] Updating any of the account's infos
