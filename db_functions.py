@@ -382,6 +382,7 @@ def get_credit_card_infos(user_id, credit_card_name):
 
     cursor.execute(GET_CREDIT_CARD_INFOS_QUERY)
     infos = cursor.fetchall()
+    print(infos)
 
     cc_name = infos[0][0]
     ccholder_name = infos[0][1]
