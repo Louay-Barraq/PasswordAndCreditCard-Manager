@@ -8,6 +8,7 @@ from db_functions import (create_db, usernames_list, get_account_infos, get_exis
 from encryption_functions import (generate_key, get_hash, encrypt_password, decrypt_password)
 from other_functions import (SleepClear, Error, Message, CheckEmail, CheckExpirationDate)
 
+# TODO : Import getpass and implement it
 
 def AllUsers():
     all_users = usernames_list()

@@ -388,8 +388,8 @@ class AddAnAccount(QDialog):
                 ShowInformationPopup("Success", f"Account Added Successfully !")
                 accountUserMenu = AccountUserMenu()
                 widget.addWidget(accountUserMenu)
-                widget.setFixedWidth(730)
-                widget.setFixedHeight(510)
+                widget.setFixedWidth(750)
+                widget.setFixedHeight(515)
                 widget.setCurrentIndex(widget.currentIndex() + 1)
             
             except sqlite3.Error:
@@ -400,8 +400,8 @@ class AddAnAccount(QDialog):
     def Return(self):
         accountUserMenu = AccountUserMenu()
         widget.addWidget(accountUserMenu)
-        widget.setFixedWidth(730)
-        widget.setFixedHeight(510)
+        widget.setFixedWidth(750)
+        widget.setFixedHeight(515)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def Quit(self):
@@ -437,8 +437,8 @@ class AccountSelection(QDialog):
     def Return(self):
         accountUserMenu = AccountUserMenu()
         widget.addWidget(accountUserMenu)
-        widget.setFixedWidth(730)
-        widget.setFixedHeight(510)
+        widget.setFixedWidth(750)
+        widget.setFixedHeight(515)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def Quit(self):
@@ -482,8 +482,8 @@ class GetAnAccountInfos(QDialog):
     def Return(self):
         accountUserMenu = AccountUserMenu()
         widget.addWidget(accountUserMenu)
-        widget.setFixedWidth(730)
-        widget.setFixedHeight(510)
+        widget.setFixedWidth(750)
+        widget.setFixedHeight(515)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def Quit(self):
@@ -517,8 +517,8 @@ class ListAllAccounts(QDialog):
     def Return(self):
         accountUserMenu = AccountUserMenu()
         widget.addWidget(accountUserMenu)
-        widget.setFixedWidth(730)
-        widget.setFixedHeight(510)
+        widget.setFixedWidth(750)
+        widget.setFixedHeight(515)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def Quit(self):
@@ -559,8 +559,8 @@ class UpdateAnAccountInfos(QDialog):
     def Return(self):
         accountUserMenu = AccountUserMenu()
         widget.addWidget(accountUserMenu)
-        widget.setFixedWidth(730)
-        widget.setFixedHeight(510)
+        widget.setFixedWidth(750)
+        widget.setFixedHeight(515)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def Quit(self):
@@ -584,8 +584,8 @@ class UpdateUsername(QDialog):
             ShowInformationPopup("Success", "Account's Username Updated Successfully !")
             accountUserMenu = AccountUserMenu()
             widget.addWidget(accountUserMenu)
-            widget.setFixedWidth(730)
-            widget.setFixedHeight(510)
+            widget.setFixedWidth(750)
+            widget.setFixedHeight(515)
             widget.setCurrentIndex(widget.currentIndex() + 1)
 
         except sqlite3.Error:
@@ -780,9 +780,10 @@ class AddACreditCard(QDialog):
                 ShowInformationPopup("Success", "Credit Card Added Successfully !")
                 creditCardUserMenu = CreditCardUserMenu()
                 widget.addWidget(creditCardUserMenu)
-                widget.setFixedWidth(740)
+                widget.setFixedWidth(750)
                 widget.setFixedHeight(510)
                 widget.setCurrentIndex(widget.currentIndex() + 1)
+                break
             except sqlite3.Error:
                 ShowWarningPopup("An Error Occured, Try Again Later !")
                 break
@@ -791,7 +792,7 @@ class AddACreditCard(QDialog):
     def Return(self):
         creditCardUserMenu = CreditCardUserMenu()
         widget.addWidget(creditCardUserMenu)
-        widget.setFixedWidth(740)
+        widget.setFixedWidth(750)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
@@ -889,7 +890,7 @@ class GetACreditCardInfos(QDialog):
     def Return(self):
         creditCardUserMenu = CreditCardUserMenu()
         widget.addWidget(creditCardUserMenu)
-        widget.setFixedWidth(740)
+        widget.setFixedWidth(750)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
@@ -926,7 +927,7 @@ class ListAllCreditCards(QDialog):
     def Return(self):
         creditCardUserMenu = CreditCardUserMenu()
         widget.addWidget(creditCardUserMenu)
-        widget.setFixedWidth(740)
+        widget.setFixedWidth(750)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
@@ -1246,7 +1247,7 @@ class DeleteACreditCard(QDialog):
     def Return(self):
         creditCardUserMenu = CreditCardUserMenu()
         widget.addWidget(creditCardUserMenu)
-        widget.setFixedWidth(740)
+        widget.setFixedWidth(750)
         widget.setFixedHeight(510)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
