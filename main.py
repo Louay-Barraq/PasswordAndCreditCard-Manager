@@ -1,5 +1,6 @@
 import sqlite3
 from os import path
+from getpass import getpass
 from db_functions import (create_db, usernames_list, get_account_infos, get_existing_accounts, get_hashed_password,
     get_key, get_user_id, add_account, add_user, update_account_password, update_account_username, delete_account,
     delete_user, update_account_email, add_credit_card, delete_credit_card, update_credit_card_CVV, update_credit_card_expiration_date,
@@ -90,7 +91,7 @@ def check_user(username, provided_hash):
 def SignIn():
     # Sign In
     username = input("What is your username? : ")
-    provided_password = input("What is your master password? : ")
+    provided_password = getpass("What is your master password? : ")
     provided_hash = get_hash(provided_password)
 
     accessed = check_user(username, provided_hash)
@@ -111,7 +112,7 @@ def SignUp():
             condition = True
 
     # Getting a master password and hashing it
-    hashed_master_pwd = get_hash(input("Enter your master password : "))
+    hashed_master_pwd = get_hash(getpass("Enter your master password : "))
 
     # Generating a key
     key = generate_key()
@@ -168,14 +169,14 @@ def AddAccount(key, username):
         email = input("Enter The Account's Email : ")
 
     # Getting a password and a password verification to make sure no typo happened
-    password = input("Enter The Account's Password : ")
-    confirmation = input("Enter The Account's Password Again For Confirmation : ")
+    password = getpass("Enter The Account's Password : ")
+    confirmation = getpass("Enter The Account's Password Again For Confirmation : ")
 
     while password != confirmation :
         Message("The Password And Its Confirmation Doesn't Match; Try Again !")
         
-        password = input("Enter The Password : ")
-        confirmation = input("Enter The Password Again For Confirmation : ")        
+        password = getpass("Enter The Password : ")
+        confirmation = getpass("Enter The Password Again For Confirmation : ")        
 
     # Encrypting Password  
     encrypted_password = encrypt_password(key, password)
@@ -195,7 +196,7 @@ def ListAllExistingAccounts(username):
     if len(accounts) == 0:
         Message("There Is No Account Saved !")
 
-    SleepClear(1.1)
+    SleepClear(0.7)
 
     # Listing All The Accounts
     for i in range(len(accounts)):
@@ -208,9 +209,21 @@ def ListAccountInfo(username, key):
     if len(all_accounts) == 0:
         Message("There Are No Accounts Saved !")
 
-    else:
-        account_name = input("Which Account You Want To See Its Infos ? : ")
+    account_name = input("Which Account You Want To See Its Infos ? : ")
 
+    # Checking that the given account exists  
+    notExists = True
+    while notExists:
+        for acc in all_accounts:
+            if account_name == acc[0]:
+                notExists = False
+        
+        if notExists == True:
+            Message("This Account Doesn't Exist !")
+            account_name = input("Which Account You Want To See Its Infos ? : ")    
+
+
+    else:
         # Checking if the account already exists
         exists = False
         for acc in all_accounts:
@@ -233,66 +246,68 @@ def ListAccountInfo(username, key):
 def UpdateAccountInfo(username):
     user_id = get_user_id(username)
     key = get_key(user_id)
-    account = input("Which Account You Want To Update Its Infos ? :")
+    account_name = input("Which Account You Want To Update Its Infos ? :")
 
     # Checking if the account already exists
     all_accounts = get_existing_accounts(user_id)
 
-    exists = False
-    while exists == False:
+    notExists = True
+    while notExists:
         for acc in all_accounts:
-            if acc[0] == account:
-                exists = True
-                while True:
-                    # Updating the account's infos
-                    print("----------------------------")
-                    print("|  [1] : Update Username   |")
-                    print("|  [2] : Update Email      |")
-                    print("|  [3] : Update Password   |")
-                    print("|  [4] : Return            |")
-                    print("----------------------------")
+            if account_name == acc[0]:
+                notExists = False
+        
+        if notExists == True:
+            Message("This Account Doesn't Exist !")
+            account_name = input("Which Account You Want To See Its Infos ? : ") 
 
-                    choice = input("=> Answer : ")
+    while notExists == False:
+        # Updating the account's infos
+        print("----------------------------")
+        print("|  [1] : Update Username   |")
+        print("|  [2] : Update Email      |")
+        print("|  [3] : Update Password   |")
+        print("|  [4] : Return            |")
+        print("----------------------------")
 
-                    if choice not in ['1', '2', '3', '4']:
-                        Message("Please Enter A Valid Choice ")
-                    
-                    elif choice == '1':
-                        new_username = input("Enter The New Username : ")
-                        try:
-                            update_account_username(user_id, new_username, account)
-                            Message("Username Updated Successfully ! ")
-                            break
-                        except sqlite3.Error:
-                            Error()
+        choice = input("=> Answer : ")
 
-                    elif choice == '2':
-                        new_email = input("Enter The New Email : ")
-                        while CheckEmail(new_email) == False:
-                            print("This Email Address Isn't Valid !")
-                            new_email = input("Enter The New Email : ")
-                        try:
-                            update_account_email(user_id, new_email, account)
-                            Message("Email Updated Successfully ! ")
-                            break
-                        except sqlite3.Error:
-                            Error()
+        if choice not in ['1', '2', '3', '4']:
+            Message("Please Enter A Valid Choice ")
+        
+        elif choice == '1':
+            new_username = input("Enter The New Username : ")
+            try:
+                update_account_username(user_id, new_username, account_name)
+                Message("Username Updated Successfully ! ")
+                break
+            except sqlite3.Error:
+                Error()
 
-                    elif choice == '3':
-                        new_password = input("Enter The New Password : ")
-                        encrypted_new_password = encrypt_password(key, new_password)
-                        try:
-                            update_account_password(user_id, encrypted_new_password, account)
-                            Message("Password Updated Successfully ! ")
-                            break
-                        except sqlite3.Error:
-                            Error()
+        elif choice == '2':
+            new_email = input("Enter The New Email : ")
+            while CheckEmail(new_email) == False:
+                print("This Email Address Isn't Valid !")
+                new_email = input("Enter The New Email : ")
+            try:
+                update_account_email(user_id, new_email, account_name)
+                Message("Email Updated Successfully ! ")
+                break
+            except sqlite3.Error:
+                Error()
 
-                    elif choice == '4':
-                        return
+        elif choice == '3':
+            new_password = getpass("Enter The New Password : ")
+            encrypted_new_password = encrypt_password(key, new_password)
+            try:
+                update_account_password(user_id, encrypted_new_password, account_name)
+                Message("Password Updated Successfully ! ")
+                break
+            except sqlite3.Error:
+                Error()
 
-        Message("Account Doesn't Exist !")
-        account = input("Which Account You Want To Update Its Infos ? :")
+        elif choice == '4':
+            return
 
 
 def DeleteAccount(username):
@@ -353,10 +368,10 @@ def AddCreditCard(key, username):
         exp_date = input("As An Example On How To Enter The Expiration Date, You Could Type 07/24 \n-Enter The Credit Card's Expiration Date ( Type MM/YY ) : ")
     
     # Getting the CVV
-    cvv = input("Enter The Credit Card's CVV : ")
+    cvv = getpass("Enter The Credit Card's CVV : ")
     while (cvv.isdigit() == False) or (len(cvv) != 3):
         print("This Credit Card CVV Isn't Valid !")
-        cvv = input("Enter The Credit Card's CVV : ")
+        cvv = getpass("Enter The Credit Card's CVV : ")
        
 
     # Encrypting Credit Card's Number and CVV ( using the same function that encrypts passwords for accounts )
@@ -451,10 +466,10 @@ def UpdateCreditCardInfo(username):
                 Error()
 
         elif choice == '5':
-            new_cvv = input("Enter The New Card's CVV : ")
+            new_cvv = getpass("Enter The New Card's CVV : ")
             while (new_cvv.isdigit() == False) or (len(new_cvv) != 3):
                 print("This Card's CVV Isn't Valid !")
-                new_cvv = input("Enter The New Card's CVV : ")
+                new_cvv = getpass("Enter The New Card's CVV : ")
 
             try:
                 update_credit_card_CVV(user_id, encrypt_password(new_cvv), credit_card)
