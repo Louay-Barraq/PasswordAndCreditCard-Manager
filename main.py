@@ -8,7 +8,6 @@ from db_functions import (create_db, usernames_list, get_account_infos, get_exis
 from encryption_functions import (generate_key, get_hash, encrypt_password, decrypt_password)
 from other_functions import (SleepClear, Error, Message, CheckEmail, CheckExpirationDate)
 
-# TODO : Import getpass and implement it
 
 def AllUsers():
     all_users = usernames_list()
@@ -240,53 +239,60 @@ def UpdateAccountInfo(username):
     all_accounts = get_existing_accounts(user_id)
 
     exists = False
-    for acc in all_accounts:
-        if acc[0] == account:
-            exists = True
+    while exists == False:
+        for acc in all_accounts:
+            if acc[0] == account:
+                exists = True
+                while True:
+                    # Updating the account's infos
+                    print("----------------------------")
+                    print("|  [1] : Update Username   |")
+                    print("|  [2] : Update Email      |")
+                    print("|  [3] : Update Password   |")
+                    print("|  [4] : Return            |")
+                    print("----------------------------")
 
-    if exists == False:
+                    choice = input("=> Answer : ")
+
+                    if choice not in ['1', '2', '3', '4']:
+                        Message("Please Enter A Valid Choice ")
+                    
+                    elif choice == '1':
+                        new_username = input("Enter The New Username : ")
+                        try:
+                            update_account_username(user_id, new_username, account)
+                            Message("Username Updated Successfully ! ")
+                            break
+                        except sqlite3.Error:
+                            Error()
+
+                    elif choice == '2':
+                        new_email = input("Enter The New Email : ")
+                        while CheckEmail(new_email) == False:
+                            print("This Email Address Isn't Valid !")
+                            new_email = input("Enter The New Email : ")
+                        try:
+                            update_account_email(user_id, new_email, account)
+                            Message("Email Updated Successfully ! ")
+                            break
+                        except sqlite3.Error:
+                            Error()
+
+                    elif choice == '3':
+                        new_password = input("Enter The New Password : ")
+                        encrypted_new_password = encrypt_password(key, new_password)
+                        try:
+                            update_account_password(user_id, encrypted_new_password, account)
+                            Message("Password Updated Successfully ! ")
+                            break
+                        except sqlite3.Error:
+                            Error()
+
+                    elif choice == '4':
+                        return
+
         Message("Account Doesn't Exist !")
-
-    while True:
-        # Updating the account's infos
-        print("----------------------------")
-        print("|  [1] : Update Username   |")
-        print("|  [2] : Update Email      |")
-        print("|  [3] : Update Password   |")
-        print("----------------------------")
-
-        choice = input()
-
-        if choice not in ['1', '2', '3']:
-            Message("Please Enter A Valid Choice ")
-        
-        elif choice == '1':
-            new_username = input("Enter The New Username : ")
-            try:
-                update_account_username(user_id, new_username, account)
-                break
-            except sqlite3.Error:
-                Error()
-
-        elif choice == '2':
-            new_email = input("Enter The New Email : ")
-            while CheckEmail(new_email) == False:
-                print("This Email Address Isn't Valid !")
-                new_email = input("Enter The New Email : ")
-            try:
-                update_account_email(user_id, new_email, account)
-                break
-            except sqlite3.Error:
-                Error()
-
-        elif choice == '3':
-            new_password = input("Enter The New Password : ")
-            encrypted_new_password = encrypt_password(key, new_password)
-            try:
-                update_account_password(user_id, encrypted_new_password, account)
-                break
-            except sqlite3.Error:
-                Error()
+        account = input("Which Account You Want To Update Its Infos ? :")
 
 
 def DeleteAccount(username):
@@ -342,7 +348,7 @@ def AddCreditCard(key, username):
 
     # Getting the expiration date
     exp_date = input("Enter The Credit Card's Expiration Date ( Type MM/YY ) : ")
-    while CheckExpirationDate(exp_date):
+    while CheckExpirationDate(exp_date) == False:
         print("This Credit Card Expiration Date Isn't Valid !")
         exp_date = input("As An Example On How To Enter The Expiration Date, You Could Type 07/24 \n-Enter The Credit Card's Expiration Date ( Type MM/YY ) : ")
     
@@ -356,7 +362,6 @@ def AddCreditCard(key, username):
     # Encrypting Credit Card's Number and CVV ( using the same function that encrypts passwords for accounts )
     encrypted_number = encrypt_password(key, number)
     encrypted_CVV = encrypt_password(key, cvv)
-    print(encrypted_CVV)
 
     try:
         add_credit_card(cc_name, cardholder_name, encrypted_number, encrypted_CVV, exp_date, user_id)
@@ -391,12 +396,13 @@ def UpdateCreditCardInfo(username):
         print("|      [3] : Update Card Number            |")
         print("|      [4] : Update Card Expiration Date   |")
         print("|      [5] : Update Card CVV               |")
-        print("|      [6] : Quit                          |")
+        print("|      [6] : Return                        |")
+        print("|      [7] : Quit                          |")
         print("--------------------------------------------")
 
         choice = input("=> Answer : ")
 
-        if choice not in ['1', '2', '3', '4', '5', '6']:
+        if choice not in ['1', '2', '3', '4', '5', '6', '7']:
             Message("Please Enter A Valid Choice ")
 
         elif choice == '1':
@@ -457,7 +463,12 @@ def UpdateCreditCardInfo(username):
             except sqlite3.Error:
                 Error()
 
+
         elif choice == "6":
+            return
+
+
+        elif choice == "7":
             exit()
     
 
@@ -471,7 +482,7 @@ def DeleteCreditCard(username):
     condition = True
     for cc in all_ccs:
         if cc[0] == credit_card:
-            SleepClear(1.5)
+            SleepClear(0.3)
             break
     else:
         condition = False
@@ -586,12 +597,13 @@ def main():
                             # SleepClear()
                         elif third_choice == '4':
                             UpdateAccountInfo(username)
-                            SleepClear(1.5)
+                            SleepClear(0.5)
                         elif third_choice == '5':
                             DeleteAccount(username)
                             SleepClear(1.25)
 
                         elif third_choice == '6':
+                            SleepClear(0)
                             pass
 
                         elif third_choice == '7':
@@ -610,17 +622,16 @@ def main():
                             #SleepClear()
                         elif fourth_choice == '2':
                             ListAllExistingCreditCards(username)
-                            # SleepClear()
                         elif fourth_choice == '3':
                             ListCreditCardInfo(username, key)
-                            # SleepClear()
                         elif fourth_choice == '4':
                             UpdateCreditCardInfo(username)
-                            # SleepClear(1.5)
+                            SleepClear(0.5)
                         elif fourth_choice == '5':
                             DeleteCreditCard(username)
-                            SleepClear(1.25)
+                            SleepClear(0.65)
                         elif fourth_choice == '6':
+                            SleepClear(0)
                             pass
                         elif fourth_choice == '7':
                             SleepClear(0)
