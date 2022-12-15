@@ -1,6 +1,5 @@
 import sqlite3
  
-# notes TEXT NULL,
 
 def connect():
     # Connecting to the database
@@ -9,6 +8,7 @@ def connect():
     cursor = connection.cursor()
 
     return connection, cursor
+
 
 def disconnect(connection):
     connection.commit()

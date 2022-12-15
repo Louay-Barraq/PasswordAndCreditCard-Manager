@@ -17,7 +17,6 @@ class MainMenu(QMainWindow):
     def __init__(self):
         super(MainMenu, self).__init__()
         loadUi("main_menu.ui", self)
-        self.setWindowIcon(QtGui.QIcon('logo.png'))
         self.Sign_Up.clicked.connect(self.GoToSignUp)
         self.Sign_In.clicked.connect(self.GoToSignIn)
         self.DeleteAUser.clicked.connect(self.GoToDelAUser)
