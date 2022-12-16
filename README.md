@@ -85,7 +85,7 @@ python3 gui_main.py
 - [X] Showing all the saved accounts
 - [X] Showing all the saved credit cards
 - [X] A Graphical User Interface [GUI] to make the user experience easier
-
+- [X] Hiding sensitive inputs [when using the terminal or the command prompt] for more security  
 
 <h2> Built with</h2>
 <ul>
